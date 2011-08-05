@@ -841,6 +841,16 @@ static void free_area(struct logfs_area *area)
 	kfree(area);
 }
 
+void free_areas(struct super_block *sb)
+{
+	struct logfs_super *super = logfs_super(sb);
+	int i;
+
+	for_each_area(i)
+		free_area(super->s_area[i]);
+	free_area(super->s_journal_area);
+}
+
 static struct logfs_area *alloc_area(struct super_block *sb)
 {
 	struct logfs_area *area;
@@ -923,10 +933,6 @@ err:
 void logfs_cleanup_areas(struct super_block *sb)
 {
 	struct logfs_super *super = logfs_super(sb);
-	int i;
 
 	btree_grim_visitor128(&super->s_object_alias_tree, 0, kill_alias);
-	for_each_area(i)
-		free_area(super->s_area[i]);
-	free_area(super->s_journal_area);
 }
