@@ -3985,6 +3985,7 @@ F:	fs/partitions/ldm.*
 
 LogFS
 M:	Joern Engel <joern@logfs.org>
+M:	Prasad Joshi <prasadjoshi.linux@gmail.com>
 L:	logfs@logfs.org
 W:	logfs.org
 S:	Maintained
