@@ -223,7 +223,9 @@ int logfs_fsync(struct file *file, int datasync)
 {
 	struct super_block *sb = file->f_mapping->host->i_sb;
 
+	logfs_get_wblocks(sb, NULL, WF_LOCK);
 	logfs_write_anchor(sb);
+	logfs_put_wblocks(sb, NULL, WF_LOCK);
 	return 0;
 }
 
